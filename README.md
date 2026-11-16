@@ -1,7 +1,7 @@
 # CC Auto APT archive
 
 
-Kho APT của dự án cung cấp gói `cc-auto` cho hệ có Python 3.9 trở lên.
+Kho APT của dự án cung cấp gói `cc-auto` bản Go cho amd64 và arm64.
 Chạy lệnh dưới đây từ tài khoản sẽ sử dụng Claude Code:
 
 ```sh
@@ -18,7 +18,7 @@ sudo apt install cc-auto
 cc-auto-setup
 ```
 
-APT cài Python nếu cần. Cài Claude Code CLI riêng theo [hướng dẫn của Anthropic](https://code.claude.com/docs/en/setup).
+Cài Claude Code CLI riêng theo [hướng dẫn của Anthropic](https://code.claude.com/docs/en/setup).
 Lệnh `cc-auto-setup` cấu hình shell, VS Code và systemd cho user hiện tại và
 có cùng các tùy chọn như `install.sh` bên dưới. Mở terminal mới sau khi setup.
 Sau khi cập nhật gói, chạy lại `cc-auto-setup` để làm mới shell integration và
