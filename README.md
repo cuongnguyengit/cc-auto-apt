@@ -44,3 +44,15 @@ cc-account doctor
 Includes complete CLI examples, per-account 5h/week routing limits, weekly pacing, priority/sticky/round-robin/least-used strategies, adaptive/static forecasting, and diagnostics. Watch refreshes the display while respecting quota polling and backoff.
 
 See [the CLI guide](docs/cli.md). Windows, macOS, and Linux archives are available in this repository's Releases.
+
+## macOS via Homebrew
+
+CC Auto 1.3.1 fixes Keychain-backed quota monitoring on macOS (Apple Silicon and Intel):
+
+```sh
+brew install cuongnguyengit/tap/cc-auto
+cc-auto-setup
+```
+
+To update: `brew update`, `brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
+Reopen your terminal and run `cc-auto check`. Monitoring preserves profiles; per-process routing remains independent of the configured VS Code profile shown as Active.

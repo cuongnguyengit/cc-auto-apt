@@ -94,5 +94,9 @@ Credential values, environment values and prompt content are never printed.
 Offline doctor does not refresh tokens or repair files. `--online` explicitly
 runs a quota check and may refresh OAuth credentials and route the shared alias.
 Custom shell/settings paths may produce warnings that need manual inspection.
-On macOS, credential reads use Keychain; online shared polling is unavailable.
+On macOS, credential reads and quota monitoring use Keychain. `check`, `check
+--watch`, and `doctor --online` poll accounts with caching/backoff. The displayed
+Active account is the configured VS Code profile; managed terminal/VS Code
+processes select accounts independently. Monitoring never retargets an auth
+alias or changes Keychain namespaces. Approve macOS Keychain access when asked.
 Use the suggested setup/login/priority/recovery commands to repair findings.
