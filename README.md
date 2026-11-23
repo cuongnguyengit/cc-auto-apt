@@ -33,6 +33,8 @@ Native Go binaries; Python is not required. Existing profiles are preserved.
 ```sh
 sudo apt update
 sudo apt install --only-upgrade cc-auto
+cc-auto-setup
+# Reopen your terminal after setup.
 cc-account --help
 cc-auto --help
 cc-auto check --watch -n 0.1
