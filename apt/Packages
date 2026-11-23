@@ -94,3 +94,41 @@ Description: multi-account manager for Claude Code
  user to configure shell commands, VS Code and a systemd user service.
  Claude Code CLI is distributed separately.
 
+Package: cc-auto
+Architecture: amd64
+Version: 1.3.0-1
+Priority: optional
+Section: utils
+Maintainer: Nguyen Manh Cuong <cuongnguyengit@users.noreply.github.com>
+Filename: pool/cc-auto_1.3.0-1_amd64.deb
+Size: 3044338
+MD5sum: efa448386f782321ed8b2815bbb84788
+SHA1: f5901e8d4507ff247b7b357eb7d9209357b5f817
+SHA256: 0b847f276f8e382bb325cbaaa4f748989907818aba0ca828a700b01edd8ec6b3
+SHA512: 0ee92d27596382c5cc0bc3379a6ce6179eeff4ed1517bf9634b27f59419c8d9d19d50325b342428c6d818721b420dd53e034ac1890f7315dea8aecf779e283b5
+Homepage: https://github.com/cuongnguyengit/cc-auto
+Description: multi-account manager for Claude Code
+ Manage isolated Claude Code profiles with shared project sessions, quota
+ tracking and automatic routing. Run cc-auto-setup as the intended Linux
+ user to configure shell commands, VS Code and a systemd user service.
+ Claude Code CLI is distributed separately.
+
+Package: cc-auto
+Architecture: arm64
+Version: 1.3.0-1
+Priority: optional
+Section: utils
+Maintainer: Nguyen Manh Cuong <cuongnguyengit@users.noreply.github.com>
+Filename: pool/cc-auto_1.3.0-1_arm64.deb
+Size: 2785008
+MD5sum: c52ee36c053cc84209389af222003472
+SHA1: 5c2077367461303cfe0b6d16652deec93c1e4090
+SHA256: 8345fb7cafdd3a03d7e2f9ded9dc26c3fac348608d76b65f6e625137109d5520
+SHA512: 1eeae9b3a6dfea659ef56c22834f894de016303661861f4eb13794c3a5653c72e37e1d5fad152a320ec175358a0e78cac3e3b75685fab255d30e4dbad09d5864
+Homepage: https://github.com/cuongnguyengit/cc-auto
+Description: multi-account manager for Claude Code
+ Manage isolated Claude Code profiles with shared project sessions, quota
+ tracking and automatic routing. Run cc-auto-setup as the intended Linux
+ user to configure shell commands, VS Code and a systemd user service.
+ Claude Code CLI is distributed separately.
+

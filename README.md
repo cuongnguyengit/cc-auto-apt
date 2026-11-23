@@ -25,3 +25,20 @@ Sau khi cập nhật gói, chạy lại `cc-auto-setup` để làm mới shell i
 khởi động lại router. Trước khi gỡ gói, tắt dịch vụ đã bật bằng
 `systemctl --user disable --now claude-account-router.service`.
 
+
+## Go 1.3.0
+
+Native Go binaries; Python is not required. Existing profiles are preserved.
+
+```sh
+sudo apt update
+sudo apt install --only-upgrade cc-auto
+cc-account --help
+cc-auto --help
+cc-auto check --watch -n 0.1
+cc-account doctor
+```
+
+Includes complete CLI examples, per-account 5h/week routing limits, weekly pacing, priority/sticky/round-robin/least-used strategies, adaptive/static forecasting, and diagnostics. Watch refreshes the display while respecting quota polling and backoff.
+
+See [the CLI guide](docs/cli.md). Windows, macOS, and Linux archives are available in this repository's Releases.
