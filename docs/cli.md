@@ -1,5 +1,11 @@
 # CLI guide: Go 1.3
 
+From 1.3.2, a resumed conversation can reclaim its saved recovery record after
+the old managed launcher exits, including after a crash or a missing SessionEnd.
+Live owners remain protected. Recovery attempts and pending wakes reset on
+handoff; the conversation itself is preserved. Older retained terminal folders
+without an owner lease are conservatively protected if liveness is unknown.
+
 `cc-account -h` / `--help` and `cc-auto -h` / `--help` print complete command
 guides and examples. Setup installs shell functions; reopen the shell and open
 new VS Code conversations after upgrading integrations.

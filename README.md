@@ -56,3 +56,12 @@ cc-auto-setup
 
 To update: `brew update`, `brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
 Reopen your terminal and run `cc-auto check`. Monitoring preserves profiles; per-process routing remains independent of the configured VS Code profile shown as Active.
+
+## Go 1.3.2: resumed-session recovery fix
+
+APT and Homebrew provide 1.3.2. Resumed Claude terminal/VS Code conversations reclaim recovery state from exited managed launchers; live owners stay protected. New OS lifetime locks support crash recovery. Existing profiles and conversations are preserved.
+
+Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-auto-setup`.
+Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
+
+Reopen terminals/new VS Code processes after updating integrations. Legacy retained terminal directories without a lifetime lock remain protected if liveness is unknown. See the CLI guide for details.
