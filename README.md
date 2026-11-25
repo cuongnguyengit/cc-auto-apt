@@ -65,3 +65,12 @@ Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-a
 Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
 
 Reopen terminals/new VS Code processes after updating integrations. Legacy retained terminal directories without a lifetime lock remain protected if liveness is unknown. See the CLI guide for details.
+
+## Go 1.3.3: legacy Linux ownership and diagnostics
+
+APT and Homebrew now provide 1.3.3. Linux verifies same-user processes before reclaiming retained folders from older versions without lifetime locks. A surviving Claude child remains protected even if its launcher exited. Unknown ownership is distinguished from verified live ownership. `cc-auto recover status --json` includes owner state/PIDs; doctor flags stale or unknown bindings.
+
+Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-auto-setup`.
+Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
+
+Resume in a new managed process after upgrading. Existing profiles and credentials are preserved. The legacy /proc reclamation applies to Linux; other platforms retain conservative protection for legacy folders without owner locks.

@@ -3,8 +3,13 @@
 From 1.3.2, a resumed conversation can reclaim its saved recovery record after
 the old managed launcher exits, including after a crash or a missing SessionEnd.
 Live owners remain protected. Recovery attempts and pending wakes reset on
-handoff; the conversation itself is preserved. Older retained terminal folders
-without an owner lease are conservatively protected if liveness is unknown.
+handoff; the conversation itself is preserved. From 1.3.3, Linux also inspects
+same-user process environments to reclaim legacy folders without owner leases.
+A live Claude child remains protected even after its launcher exits. Unreadable
+process data remains unknown, rather than being reported as a verified live
+owner. Other platforms conservatively protect legacy folders without leases.
+`cc-auto recover status --json` includes `owner.state` and matching `owner.pids`;
+doctor warns about stale or unknown ownership.
 
 `cc-account -h` / `--help` and `cc-auto -h` / `--help` print complete command
 guides and examples. Setup installs shell functions; reopen the shell and open
