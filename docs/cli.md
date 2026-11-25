@@ -1,5 +1,36 @@
 # CLI guide: Go 1.3
 
+## Account identity and subscription details (1.4.0+)
+
+```sh
+cc-account list
+cc-account list --details
+cc-account detail work
+cc-account info work --json
+cc-account detail --all --json
+cc-account list --json
+```
+
+Plain list includes cached email/name when available. The details table maps
+profile names to email, plan, display name, organization and credential state.
+`detail` (aliases `info`, `details`) additionally shows full name, account and
+organization IDs, organization type/role, workspace role, billing type, seat and
+rate-limit tiers, extra-usage setting, known creation/fetch/trial dates and OAuth
+expiry. `--all` covers default and named profiles; `auto` is a routing alias,
+not another account. JSON for one profile is an object; all/list is an array.
+
+This is local cached data, not a live billing or subscription lookup. Missing
+fields are unknown (omitted in JSON); an expired or missing credential does not
+erase cached identity. Plan is the stored subscription type, not inferred from
+quota. Keychain may request access on macOS when viewing full details. Plain
+list only reads identity metadata and never queries Keychain. Viewing details
+does not switch profiles, update files, make network requests or refresh tokens.
+Explicit allowlisted fields exclude access/refresh tokens, API keys, MCP auth,
+project data and all unknown nested metadata. Email/name are personal data:
+review detail output before sharing it in public support reports.
+
+## Session ownership
+
 From 1.3.2, a resumed conversation can reclaim its saved recovery record after
 the old managed launcher exits, including after a crash or a missing SessionEnd.
 Live owners remain protected. Recovery attempts and pending wakes reset on

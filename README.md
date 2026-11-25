@@ -74,3 +74,18 @@ Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-a
 Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
 
 Resume in a new managed process after upgrading. Existing profiles and credentials are preserved. The legacy /proc reclamation applies to Linux; other platforms retain conservative protection for legacy folders without owner locks.
+
+## Go 1.4.0: account details
+
+```sh
+cc-account list --details
+cc-account detail work
+cc-account info work --json
+cc-account detail --all --json
+```
+
+Shows cached email/name, subscription plan, organization/roles, seat/billing/rate-limit tiers, known creation/fetch/trial dates and credential expiry. Plain list now includes cached email/name. Missing values stay unknown. A strict allowlist excludes token values, API keys, MCP authentication, project data and unknown metadata. These views do not refresh tokens, make API requests or modify profiles.
+
+Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-auto-setup`.
+Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
+Windows native archives are available in Releases. See the [CLI guide](docs/cli.md).
