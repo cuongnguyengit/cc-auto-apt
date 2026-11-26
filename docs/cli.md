@@ -82,18 +82,29 @@ Explicit allowlisted fields exclude access/refresh tokens, API keys, MCP auth,
 project data and all unknown nested metadata. Email/name are personal data:
 review detail output before sharing it in public support reports.
 
-## Session ownership
+## Shared conversations and process-local recovery
 
-From 1.3.2, a resumed conversation can reclaim its saved recovery record after
-the old managed launcher exits, including after a crash or a missing SessionEnd.
-Live owners remain protected. Recovery attempts and pending wakes reset on
-handoff; the conversation itself is preserved. From 1.3.3, Linux also inspects
-same-user process environments to reclaim legacy folders without owner leases.
-A live Claude child remains protected even after its launcher exits. Unreadable
-process data remains unknown, rather than being reported as a verified live
-owner. Other platforms conservatively protect legacy folders without leases.
-`cc-auto recover status --json` includes `owner.state` and matching `owner.pids`;
-doctor warns about stale or unknown ownership.
+From 1.5.1, multiple managed VS Code windows or terminals may open the same
+conversation. Reloading Remote VS Code no longer blocks UserPromptSubmit just
+because an older process is still alive. Each conversation/process pair has its
+own retry counters, pending wakes and cancellation state. Credential routing
+remains private to each managed process; late Stop/SessionEnd events in one
+window do not reset another window's recovery.
+
+Legacy recovery records are retained and imported only into their original
+process's state. No profile, credential or conversation needs to be deleted.
+`cc-auto recover status --json` can show multiple records for one conversation,
+with different `terminal` IDs. `owner.state` describes process liveness for
+troubleshooting, not exclusive ownership of the conversation. Explicit
+`cc-auto recover cancel <session>` cancels every tracked instance of that
+conversation; automatic protocol timeouts cancel only their own instance.
+
+CC Auto does not serialize Claude's transcript writes or promise that concurrent
+prompts merge safely. This fix removes CC Auto's process-wide conversation lock;
+Claude's own session behavior still applies. After upgrading, existing hook
+invocations use the new binary. Reopen the same conversation in a new managed
+process to load the new protocol wrapper for automatic recovery; history and
+profiles are preserved.
 
 `cc-account -h` / `--help` and `cc-auto -h` / `--help` print complete command
 guides and examples. Setup installs shell functions; reopen the shell and open

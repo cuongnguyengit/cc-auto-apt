@@ -102,3 +102,17 @@ cc-auto warmup disable
 ```
 
 Uses one isolated, minimal Haiku request for eligible accounts at each slot. Existing five-hour windows, weekly limits and routing policy are respected; unreadable credentials and unverified quota are skipped. This cannot force an active window to reset or increase weekly quota. The computer must be awake and user scheduling available. Windows Task Scheduler, Linux systemd user timers and macOS LaunchAgents are supported. See the [CLI guide](docs/cli.md) for spending, grace periods and limitations.
+
+## Go 1.5.1: urgent Remote VS Code / shared-conversation hotfix
+
+Fixes UserPromptSubmit being blocked when an older managed process still has the same conversation open, including after Remote VS Code reload. Recovery now uses independent conversation/process records, preventing one window's retry, cancellation or late Stop event from affecting another window. Profiles, credentials and conversation history are preserved; no manual recovery-file edits or fresh conversation are required.
+
+```sh
+sudo apt update && sudo apt install --only-upgrade cc-auto
+cc-auto-setup
+cc-account --version
+```
+
+Check that the version is **1.5.1**. Retry your prompt after upgrading. New hook invocations load the fixed binary. To load the updated automatic-recovery protocol wrapper, reopen the same conversation in a new managed process. CC Auto does not serialize or merge concurrent native Claude transcript writes.
+
+Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`. Native Windows/Linux/macOS archives are available in Releases.
