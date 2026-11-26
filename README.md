@@ -89,3 +89,16 @@ Shows cached email/name, subscription plan, organization/roles, seat/billing/rat
 Ubuntu: `sudo apt update && sudo apt install --only-upgrade cc-auto`, then `cc-auto-setup`.
 Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`.
 Windows native archives are available in Releases. See the [CLI guide](docs/cli.md).
+
+## Go 1.5.0: optional scheduled soft activation
+
+Warmup is disabled by default. To opt in for every signed-in account:
+
+```sh
+cc-auto warmup dry-run
+cc-auto warmup enable --all --times 05:00,10:00,15:00 --timezone Asia/Ho_Chi_Minh
+cc-auto warmup status
+cc-auto warmup disable
+```
+
+Uses one isolated, minimal Haiku request for eligible accounts at each slot. Existing five-hour windows, weekly limits and routing policy are respected; unreadable credentials and unverified quota are skipped. This cannot force an active window to reset or increase weekly quota. The computer must be awake and user scheduling available. Windows Task Scheduler, Linux systemd user timers and macOS LaunchAgents are supported. See the [CLI guide](docs/cli.md) for spending, grace periods and limitations.

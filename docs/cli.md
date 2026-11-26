@@ -1,5 +1,58 @@
 # CLI guide: Go 1.3
 
+## Scheduled soft activation / warmup (1.5.0+)
+
+```sh
+cc-auto warmup dry-run
+cc-auto warmup enable --all --times 05:00,10:00,15:00 --timezone Asia/Ho_Chi_Minh
+cc-auto warmup status
+cc-auto warmup disable
+# Or select particular profiles:
+cc-auto warmup enable --profiles work,personal --times 05:00,10:00,15:00 --timezone Asia/Ho_Chi_Minh
+```
+
+Warmup is **disabled by default**. Enabling explicitly registers a per-user
+Windows Task Scheduler task, Linux systemd user timer, or macOS LaunchAgent.
+The schedule checks once a minute. The machine must be awake and user scheduling
+must be available (normally logged in; Linux needs a working systemd user bus).
+After sleep/offline periods, slots older than the default 15-minute grace period
+are not replayed. Set `--grace-minutes 1..30` if needed. Disable warmup before
+uninstalling; `remove-integrations` also disables it. `status` includes the next
+slots in the chosen IANA timezone, outcomes and measured tokens. Dry-run previews
+the current or next slot without quota API calls or inference (Keychain access
+may still require permission).
+
+`--all` includes every locally signed-in profile, including accounts outside
+router priority. Each eligible account gets at most one application-level CLI
+inference attempt per slot: a short Haiku prompt in a private config directory,
+no project history/settings, tools, user hooks or MCP. The CLI's managed policy
+still applies. It uses `--safe-mode`, not `--bare`, because bare mode does not
+use subscription OAuth. Output is capped at 64 tokens, one turn, a 90-second
+process timeout and a $0.02 client-estimated budget; this is not a provider-side
+billing guarantee. Real token use depends on CLI/model version and is recorded
+including prompt cache tokens. A measured local trial used 385 input tokens
+(including cache) and 4 output tokens; this is an observation, not a fixed cost.
+
+Warmup respects weekly/routing limits and never submits when quota cannot be
+verified. An active five-hour window is skipped; if it ends within the slot's
+grace period, the account waits until just after reset. Failed or uncertain CLI
+attempts are not retried automatically in that slot. `sent` means the CLI
+succeeded but a new reset is not yet verified; `warmed` requires a future reset
+reported by the quota endpoint. It cannot force an existing window to restart,
+increase weekly allowance, or guarantee three new windows on every day.
+Native retries, managed settings and provider behavior are outside the local
+scheduler's control. macOS uses the existing Keychain adapter; permission and
+live-account behavior still need validation on a user's Mac.
+
+Tokens, native model responses and raw provider errors are never stored in the
+warmup log. OAuth refreshes are copied back only if the source login has not
+changed; MCP auth and user conversation state stay separate. Configuration is
+in `warmup.json`; bounded per-slot history is in `warmup-state.json`.
+
+Provider semantics: [five-hour usage windows](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work),
+[CLI flags](https://code.claude.com/docs/en/cli-reference) and
+[OAuth versus bare mode](https://code.claude.com/docs/en/headless#start-faster-with-bare-mode).
+
 ## Account identity and subscription details (1.4.0+)
 
 ```sh
