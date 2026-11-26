@@ -82,6 +82,21 @@ Explicit allowlisted fields exclude access/refresh tokens, API keys, MCP auth,
 project data and all unknown nested metadata. Email/name are personal data:
 review detail output before sharing it in public support reports.
 
+## Retired pre-prompt hook (1.5.2)
+
+CC Auto no longer generates a terminal UserPromptSubmit hook. Retained
+`cc-account terminal-hook UserPromptSubmit` commands in already-open sessions
+are silent no-ops: no payload reads, root lookup, credential sync, lock or network.
+This also passes background-task notifications without CC Auto synchronization.
+
+Automatic asyncRewake continuation and proactive pre-prompt account switching
+are disabled. Initial process routing and best-effort account preparation after
+quota failures remain; send the next message manually. Native VS Code errors and
+results are forwarded immediately by the new wrapper. Reopen the same existing
+conversation in a new managed process to load that wrapper after upgrading.
+No account, history or recovery-file deletion is needed. The recovery preference
+controls failure account preparation, not permission to submit a prompt.
+
 ## Shared conversations and process-local recovery
 
 From 1.5.1, multiple managed VS Code windows or terminals may open the same
@@ -103,12 +118,12 @@ CC Auto does not serialize Claude's transcript writes or promise that concurrent
 prompts merge safely. This fix removes CC Auto's process-wide conversation lock;
 Claude's own session behavior still applies. After upgrading, existing hook
 invocations use the new binary. Reopen the same conversation in a new managed
-process to load the new protocol wrapper for automatic recovery; history and
+process to load the new protocol wrapper for immediate error forwarding; history and
 profiles are preserved.
 
 `cc-account -h` / `--help` and `cc-auto -h` / `--help` print complete command
 guides and examples. Setup installs shell functions; reopen the shell and open
-new VS Code conversations after upgrading integrations.
+the same VS Code conversations in new managed processes after upgrading integrations.
 
 ## Watch
 

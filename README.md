@@ -116,3 +116,33 @@ cc-account --version
 Check that the version is **1.5.1**. Retry your prompt after upgrading. New hook invocations load the fixed binary. To load the updated automatic-recovery protocol wrapper, reopen the same conversation in a new managed process. CC Auto does not serialize or merge concurrent native Claude transcript writes.
 
 Mac: `brew update && brew upgrade cuongnguyengit/tap/cc-auto`, then `cc-auto-setup`. Native Windows/Linux/macOS archives are available in Releases.
+
+## Go 1.5.2: remove the blocking pre-prompt hook
+
+No terminal `UserPromptSubmit` hook is installed. Retained commands in already-open sessions are silent success without reading input, checking roots, locks, credentials or networks. This includes background-task notifications. No profiles, credentials, recovery files or conversations need to be removed.
+
+Automatic asyncRewake/replay and protocol-error suppression are disabled. Failure routing may prepare another account for the user's next manual message; proactive pre-prompt switching is no longer performed. Quota monitoring and warm-up remain available.
+
+```sh
+sudo apt update && sudo apt install --only-upgrade cc-auto
+cc-auto-setup
+cc-account --version
+```
+
+Verify **1.5.2**, then retry your message in the existing conversation. To load the updated immediate-forwarding protocol wrapper, reopen the same conversation in a new managed process. No fresh conversation is required.
+
+## Go 1.5.2: removed pre-prompt gate
+
+The terminal `UserPromptSubmit` hook is no longer installed. Invocations retained by already-open sessions immediately exit successfully, without reading payloads, roots, locks, credentials or networks. Background-task notifications cannot be blocked by this retired command.
+
+Automatic asyncRewake continuation and VS Code error-frame suppression are disabled. Failure routing may prepare a verified alternate account; the user sends the next message manually. Proactive pre-prompt switching is disabled. Profiles, quota monitoring and warm-up remain available.
+
+```sh
+sudo apt update && sudo apt install --only-upgrade cc-auto
+cc-auto-setup
+cc-account --version
+```
+
+Verify **1.5.2**, then retry in the existing conversation. No sign-in, account/history deletion or recovery-file editing is needed. Reopen the same conversation in a new managed process to load immediate protocol forwarding in the wrapper.
+
+GitHub Actions could not start this release due to account billing/spending limits. Windows tests and Linux Docker tests passed locally. Packages are built locally from the tagged source; macOS artifacts are cross-built and not runtime-validated for this patch.
