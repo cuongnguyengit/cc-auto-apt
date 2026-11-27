@@ -146,3 +146,7 @@ cc-account --version
 Verify **1.5.2**, then retry in the existing conversation. No sign-in, account/history deletion or recovery-file editing is needed. Reopen the same conversation in a new managed process to load immediate protocol forwarding in the wrapper.
 
 GitHub Actions could not start this release due to account billing/spending limits. Windows tests and Linux Docker tests passed locally. Packages are built locally from the tagged source; macOS artifacts are cross-built and not runtime-validated for this patch.
+
+## Go 1.5.3: Windows unattended tasks without console windows
+
+Windows tasks use the GUI-subsystem `cc-auto-background.exe` launcher; unattended PowerShell and warmup Claude subprocesses use no-console flags. Upgrade the complete Windows archive. Existing disabled tasks stay disabled; task triggers/principals and warmup configuration are preserved. Unrelated tunnel tasks are not changed or enabled. Native Windows tests include a real isolated scheduled tick asserting zero console handle and disabled-task migration. Linux tests passed in Docker. macOS is cross-built for this patch; GitHub-hosted CI remained blocked by billing limits.

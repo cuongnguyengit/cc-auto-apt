@@ -221,3 +221,19 @@ Active account is the configured VS Code profile; managed terminal/VS Code
 processes select accounts independently. Monitoring never retargets an auth
 alias or changes Keychain namespaces. Approve macOS Keychain access when asked.
 Use the suggested setup/login/priority/recovery commands to repair findings.
+
+
+## Windows unattended tasks (1.5.3)
+
+Windows warmup/router task actions use `cc-auto-background.exe`, built with the
+GUI PE subsystem. It starts the sibling CLI with CREATE_NO_WINDOW. Warmup Claude
+help/inference and unattended PowerShell are also started without a console;
+normal interactive CLI, terminal and login commands retain their usual behavior.
+The task's Hidden setting only hides its scheduler entry, not a console window.
+
+Upgrade the full Windows bundle so the launcher is installed. Existing disabled
+tasks stay disabled when actions are migrated; upgrading does not enable warmup
+or change its account/time configuration. Unrelated tasks such as Remote Tunnel
+are not modified. To explicitly opt back into warmup, use `warmup enable` only
+after deciding to resume scheduled quota usage. A missing or console-subsystem
+launcher is an error, never a visible-console fallback.
